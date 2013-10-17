@@ -20,7 +20,7 @@ namespace Aura.World.Skills
 	{
 		public const ushort UseStun = 0, KnockBack = 40;
 
-		public override SkillResults Prepare(World.MabiCreature creature, World.MabiSkill skill, Shared.Network.MabiPacket packet, uint castTime)
+		public override SkillResults Prepare(MabiCreature creature, MabiSkill skill, MabiPacket packet, uint castTime)
 		{
 			creature.StopMove();
 
