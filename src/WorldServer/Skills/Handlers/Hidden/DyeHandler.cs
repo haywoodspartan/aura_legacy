@@ -13,7 +13,7 @@ namespace Aura.World.Skills
 	[SkillAttr(SkillConst.Dye)]
 	public class DyeHandler : SkillHandler
 	{
-		public override SkillResults Prepare(World.MabiCreature creature, MabiSkill skill, MabiPacket packet, uint castTime)
+		public override SkillResults Prepare(MabiCreature creature, MabiSkill skill, MabiPacket packet, uint castTime)
 		{
 			var itemId = packet.GetLong();
 			var dyeId = packet.GetLong();
@@ -149,13 +149,13 @@ namespace Aura.World.Skills
 			// Delete dye
 			creature.Inventory.Remove(creature.Temp.SkillItem2);
 
+			// Update equipped item color
+			if (creature.Temp.SkillItem1.IsEquipped())
+				Send.EquipmentChanged(creature, creature.Temp.SkillItem1);
+
 			// Success effect and aquire box
 			WorldManager.Instance.Broadcast(new MabiPacket(Op.Effect, creature.Id).PutInt(2).PutByte(4), SendTargets.Range, creature);
 			Send.ItemUpdate(creature.Client, creature, creature.Temp.SkillItem1);
-
-			// Update equipped item color
-			if (creature.Temp.SkillItem1.IsEquipped())
-				Send.ItemInfo(creature.Client, creature, creature.Temp.SkillItem1);
 		}
 	}
 }
