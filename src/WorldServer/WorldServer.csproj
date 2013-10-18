@@ -103,6 +103,7 @@
     <Compile Include="Scripting\NPC\NPCSession.cs" />
     <Compile Include="Skills\CombatAction.cs" />
     <Compile Include="Skills\CombatFactory.cs" />
+    <Compile Include="Skills\Handlers\Actions\HideHandler.cs" />
     <Compile Include="Skills\Handlers\Actions\SpreadWingsHandler.cs" />
     <Compile Include="Skills\Handlers\Actions\UmbrellaHandler.cs" />
     <Compile Include="Skills\Handlers\Base\StartStopTagsSkillHandler.cs" />
