@@ -1,6 +1,5 @@
 // Copyright (c) Aura development team - Licensed under GNU GPL
 // For more information, see licence.txt in the main folder
-// Skill by Fuhhue
 
 using Aura.Shared.Const;
 using Aura.World.Network;
@@ -8,6 +7,7 @@ using Aura.World.World;
 
 namespace Aura.World.Skills
 {
+	/// <author>Fuhhue</author>
 	[SkillAttr(SkillConst.Hide)]
 	public class HideHandler : StartStopSkillHandler
 	{
