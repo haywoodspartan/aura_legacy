@@ -1055,6 +1055,7 @@ namespace Aura.World.World
 		/// </summary>
 		public virtual void Die()
 		{
+			this.Deactivate(CreatureConditionA.Deadly);
 			this.State |= CreatureStates.Dead;
 		}
 
