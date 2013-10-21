@@ -923,7 +923,7 @@ namespace Aura.World.World
 					return CommandResult.WrongParameter;
 				}
 
-				MabiDb.Instance.AddCard(client.Account.Name, cardId, race);
+				MabiDb.Instance.AddCard((target.Client as WorldClient).Account.Name, cardId, race);
 
 				Send.ServerMessage(client, creature, Localization.Get("gm.addcard")); // Card added.
 				return CommandResult.Okay;

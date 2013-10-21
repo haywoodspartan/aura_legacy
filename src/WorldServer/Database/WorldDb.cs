@@ -1317,7 +1317,7 @@ namespace Aura.World.Database
 				var mc = new MySqlCommand(
 					"INSERT INTO `guild_members` (`characterId`, `guildId`, `rank`, `joined`, `guildPoints`, `appMessage`) " +
 					"VALUES (@characterId, @guildId, @rank, @joined, @guildPoints, @appMessage) " +
-					"ON DUPLICATE KEY UPDATE `guildPoints` = @guild_points"
+					"ON DUPLICATE KEY UPDATE `guildPoints` = @guildPoints"
 				, conn);
 
 				mc.Parameters.AddWithValue("@characterId", member.CharacterId);
