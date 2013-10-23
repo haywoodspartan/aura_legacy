@@ -170,7 +170,7 @@ that are online.
 
 ** clean
 
-Deletes all items that are dropped on the ground.
+Deletes all items that are on the ground.
 
 -----------------------------------------------------------------------------
 
