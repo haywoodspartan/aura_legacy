@@ -484,7 +484,7 @@
 50050,"Use Morrighan's Feather",0
 50051,"Create Falias Portal",0
 50052,"UseItemChattingColorChange",0
-50053,"Instal Private Farm Facility",0
+50053,"Install Private Farm Facility",0
 50054,"Reorient Homestead building",0
 50055,"Paint",0
 50056,"Mix Paint",0
