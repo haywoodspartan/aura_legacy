@@ -143,21 +143,19 @@ namespace Aura.Login.Network
 					sessionKey = packet.GetLong();
 					secPassword = packet.GetString(); // SSH1
 
-					// Continue with reading the password as usual.
-					goto case LoginType.Normal;
+					break;
+
+				// Unknown login type or new hash.
+				default:
+
+					Send.LoginResponse(client, Localization.Get("login.new_hash_error"), loginType); // You're client is using a password encryption that Aura doesn't recognize [...]
+					return;
 			}
 
 			var machineId = packet.GetBin();
 			var unk1 = packet.GetInt();
 			var unk2 = packet.GetInt();
 			var localClientIP = packet.GetString();
-
-			// Unknown login type or new hash.
-			if (loginType != LoginType.Normal && loginType != LoginType.SecondaryPassword && loginType != LoginType.FromChannel)
-			{
-				Send.LoginResponse(client, Localization.Get("login.new_hash_error"), loginType); // You're client is using a password encryption that Aura doesn't recognize [...]
-				return;
-			}
 
 			// Check account existence
 			var account = LoginDb.Instance.GetAccount(username);
