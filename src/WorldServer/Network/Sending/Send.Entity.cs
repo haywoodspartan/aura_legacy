@@ -419,6 +419,19 @@ namespace Aura.World.Network
 				}
 			}
 
+			// [180300, NA169 (23.10.2013)] ?
+			// Strange one, it's in the logs, but stucks the char in
+			// casting animation. Dependent on something?
+			// --------------------------------------------------------------
+			if (type == CreaturePacketType.Private)
+			{
+				//packet.PutInt(2); // Count?
+				//packet.PutInt(36);
+				//packet.PutInt(8);
+				//packet.PutInt(38);
+				//packet.PutInt(4);
+			}
+
 			// Keywords
 			// --------------------------------------------------------------
 			if (type == CreaturePacketType.Private)
@@ -483,6 +496,10 @@ namespace Aura.World.Network
 			// [150100] New conditions list
 			{
 				packet.PutLong((ulong)creature.Conditions.D);
+			}
+			// [180300, NA169 (23.10.2013)] New conditions list?
+			{
+				packet.PutLong(0);
 			}
 			packet.PutInt(0);					 // condition event message list
 			// loop
@@ -944,7 +961,7 @@ namespace Aura.World.Network
 				packet.PutLong(0);			         // DoubleGoreTarget
 				packet.PutInt(0);			         // DoubleGoreTargetType
 
-				// [180300, NA166 (18.09.2013)] ?
+				// [180300, NA169 (23.10.2013)] ?
 				{
 					packet.PutLong(0);
 				}
