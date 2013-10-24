@@ -93,11 +93,11 @@ and displays their Ids (to a maximum of 20).
 
 -----------------------------------------------------------------------------
 
-** spawn <monster id>
+** spawn <monster id> <amount>
 
-(Not implemented yet.)
 Spawns the monster with the given Id at the character's location.
 
+See races.txt in the data\db folder
 -----------------------------------------------------------------------------
 
 ** warp|goto <region> [x] [y]
@@ -105,6 +105,8 @@ Spawns the monster with the given Id at the character's location.
 Warps character to the given region and coordinates.
 If x and y, or only y, are ommited, the current position
 of the character is used.
+
+See regions.txt in the data\db folder
 
 -----------------------------------------------------------------------------
 
@@ -125,7 +127,9 @@ afterwards, to activate changes on NPCs and monsters.
 ** skill <skill id> [rank]
 
 Gives the skill with the specified Id to the character. "rank" ranges from
-0 (Novice) to 15 (Rank 1).
+Rank F - 1 
+
+See skills.txt in data\db folder
 
 -----------------------------------------------------------------------------
 
@@ -161,3 +165,27 @@ Examples:
 
 Adds a card to the account of the character. Only works on characters
 that are online.
+
+-----------------------------------------------------------------------------
+
+** clean
+
+Deletes all items that are on the ground.
+
+-----------------------------------------------------------------------------
+
+** weather <clear|cloudy|rain|storm>
+
+Changes the current weather to the selected weather
+
+-----------------------------------------------------------------------------
+
+** title <title id> <usable>
+
+Gives character the title that matches the Id.
+
+-----------------------------------------------------------------------------
+
+** prop <class>
+
+Spawns a prop at the character's location.
