@@ -7,9 +7,10 @@ using System.Linq;
 using Aura.Data;
 using Aura.Shared.Network;
 using Aura.Shared.Util;
+using Aura.Shared.Const;
 using Aura.World.Events;
 using Aura.World.World;
-using Aura.Shared.Const;
+using Aura.World.Network;
 
 namespace Aura.World.Player
 {
@@ -105,6 +106,12 @@ namespace Aura.World.Player
 		public MabiQuest GetQuestOrNull(ulong id)
 		{
 			return this.Quests.Values.FirstOrDefault(a => a.Id == id);
+		}
+
+		public void GiveKeyword(ushort keywordId)
+		{
+			this.Keywords.Add(keywordId);
+			Send.NewKeyword((this.Client as WorldClient), keywordId);
 		}
 	}
 }

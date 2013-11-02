@@ -135,6 +135,11 @@ namespace Aura.World.Scripting
 			client.Character.Inventory.Add(item, true);
 		}
 
+		public void GiveKeyword(WorldClient client, ushort keywordId)
+		{
+			client.Character.GiveKeyword(keywordId);
+		}
+
 		protected virtual void SetDialogName(string val)
 		{
 			_dialogName = val;

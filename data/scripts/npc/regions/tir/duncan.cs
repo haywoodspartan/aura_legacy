@@ -65,8 +65,26 @@ public class DuncanScript : NPCScript
 				ShowKeywords(c);
 				
 				var keyword = Select(c);
-				
-				Msg(c, "Oh, is that so?");
+				var response = "I don't know anything about that...";
+				switch (keyword)
+				{
+					case "personal_info":
+						response = "I'm the cheif of this town...";
+					break;
+					case "rumor":
+						response = "I heard a rumor that this is just a copy of the world of Erin. Trippy, huh?";
+					break;
+					case "about_skill":
+						response = "I don't know of any skills... Why don't you ask malcom?";
+					break;
+					case "about_arbeit":
+						response = "I don't have any jobs for you, but you can get a part time job in town.";
+					break;
+					case "about_study":
+						response = "You can study different magic down at the school!";
+					break;
+				}
+				Msg(c, response);
 				goto L_Keywords;
 			}
 

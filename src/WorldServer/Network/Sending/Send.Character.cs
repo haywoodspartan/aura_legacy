@@ -269,6 +269,14 @@ namespace Aura.World.Network
 			WorldManager.Instance.Broadcast(packet, SendTargets.Range, creature);
 		}
 
+		public static void NewKeyword(WorldClient client, ushort keywordId)
+		{
+			var pp = new MabiPacket(Op.NewKeyword, client.Character.Id);
+			pp.PutShort(keywordId);
+
+			client.Send(pp);
+		}
+
 		public static void TalentInfoUpdate(Client client, MabiCreature creature)
 		{
 			var packet = new MabiPacket(Op.TalentInfoUpdate, creature.Id);

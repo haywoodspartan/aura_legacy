@@ -731,7 +731,7 @@ namespace Aura.World.Network
 			if (client.Character.Id != packet.Id)
 				return;
 
-			if (client.NPCSession.IsValid)
+			if (!client.NPCSession.IsValid)
 			{
 				Logger.Debug("No target or no session.");
 				return;
