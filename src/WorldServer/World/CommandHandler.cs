@@ -105,7 +105,6 @@ namespace Aura.World.World
 		static CommandHandler() { }
 		private CommandHandler() { }
 
-		private static Regex _commandRegex = new Regex(Regex.Escape(WorldConf.CommandPrefix.ToString()));
 		private static Dictionary<string, Command> _commands = new Dictionary<string, Command>();
 
 		public List<string> GetAllCommandsForAuth(byte auth)
@@ -169,8 +168,7 @@ namespace Aura.World.World
 
 						if (result == CommandResult.Okay && WorldConf.CommandLogger)
 						{
-							var lCommand = _commandRegex.Replace(args[0], "", 1);
-							ChatLogger.Command(creature.Name, lCommand, msg);
+							ChatLogger.Command(creature.Name, args[0].Substring(1), msg);
 						}
 					}
 					catch (Exception ex)
