@@ -67,6 +67,7 @@
     <Compile Include="Network\ServerUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\BCrypt.cs" />
+    <Compile Include="Util\ChatLogger.cs" />
     <Compile Include="Util\Configuration.cs" />
     <Compile Include="Util\FileReader.cs" />
     <Compile Include="Util\Localization.cs" />

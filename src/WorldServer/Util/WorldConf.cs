@@ -13,6 +13,11 @@ namespace Aura.World.Util
 		// Inter
 		public static string Password;
 
+		// Logging
+		public static bool ChatLogger;
+		public static bool WhisperLogger;
+		public static bool CommandLogger;
+
 		// Data
 		public static string DataPath;
 		public static string Localization;
@@ -105,6 +110,10 @@ namespace Aura.World.Util
 #endif
 
 			WorldConf.Password = _conf.GetString("inter.password", "aura");
+
+			WorldConf.ChatLogger = _conf.GetBool("log.chat", false);
+			WorldConf.WhisperLogger = _conf.GetBool("log.whisper", false);
+			WorldConf.CommandLogger = _conf.GetBool("log.command", false);
 
 			WorldConf.DataPath = _conf.GetString("data.path", "../../data");
 			WorldConf.Localization = _conf.GetString("data.localization", "us");

@@ -374,6 +374,9 @@ namespace Aura.World.Network
 
 			Send.Chat(creature, message);
 			EventManager.PlayerEvents.OnPlayerTalks(creature, message);
+
+			if (WorldConf.ChatLogger)
+				ChatLogger.Chat(creature.Name, message);
 		}
 
 		private void HandleWhisperChat(WorldClient client, MabiPacket packet)
@@ -394,6 +397,9 @@ namespace Aura.World.Network
 
 			Send.Whisper(client, creature, creature.Name, msg);
 			Send.Whisper(target.Client, target, creature.Name, msg);
+
+			if (WorldConf.WhisperLogger)
+				ChatLogger.Whisper(creature.Name, target.Name, msg);
 		}
 
 		private void HandleGesture(WorldClient client, MabiPacket packet)

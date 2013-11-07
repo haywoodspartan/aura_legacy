@@ -301,6 +301,27 @@ namespace Aura.Shared.Database
 				return (ulong)mc.LastInsertedId;
 			}
 		}
+
+		public void LogChat(ChatType type, string from, string to, string command, string message)
+		{
+			using (var conn = MabiDb.Instance.GetConnection())
+			{
+				var mc = new MySqlCommand(
+				  "INSERT INTO `chat_logs`" +
+				  " (`chatType`, `from`, `to`, `message`, `dateTime`, `command`) " +
+				  " VALUES (@chatType, @from, @to, @message, @dateTime, @command) "
+				  , conn);
+
+				mc.Parameters.AddWithValue("@chatType", (int)type);
+				mc.Parameters.AddWithValue("@from", from);
+				mc.Parameters.AddWithValue("@to", to);
+				mc.Parameters.AddWithValue("@message", message);
+				mc.Parameters.AddWithValue("@dateTime", System.DateTime.Now);
+				mc.Parameters.AddWithValue("@command", command);
+
+				mc.ExecuteNonQuery();
+			}
+		}
 	}
 
 	public static class MySqlDataReaderExtension
