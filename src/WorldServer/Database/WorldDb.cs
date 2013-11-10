@@ -15,6 +15,7 @@ using Aura.World.Scripting;
 using Aura.World.World;
 using Aura.World.World.Guilds;
 using MySql.Data.MySqlClient;
+using Aura.Data;
 
 namespace Aura.World.Database
 {
@@ -419,6 +420,13 @@ namespace Aura.World.Database
 					while (reader.Read())
 					{
 						var item = GetItem(reader);
+
+						// Make sure the item exists in our data.
+						if (!MabiData.ItemDb.Has(item.Info.Class))
+						{
+							Logger.Warning("Unknown item '{0}' in '{1}'s inventory, removing it.", item.Info.Class, character.Name);
+							continue;
+						}
 
 						if (!character.Inventory.Has(item.Pocket))
 							throw new Exception(string.Format("Character '{0}' failed to load, pocket '{1}' missing in inventory.", character.Name, item.Pocket));
