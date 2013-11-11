@@ -165,6 +165,11 @@ namespace Aura.World.World
 						{
 							Send.ServerMessage(client, creature, Localization.Get("gm.usage"), args[0], command.Parameters); // Usage: {0} {1}
 						}
+
+						if (result == CommandResult.Okay && WorldConf.CommandLogger)
+						{
+							ChatLogger.Command(creature.Name, args[0].Substring(1), msg);
+						}
 					}
 					catch (Exception ex)
 					{
