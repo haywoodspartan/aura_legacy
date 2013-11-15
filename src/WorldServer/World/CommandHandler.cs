@@ -721,23 +721,38 @@ namespace Aura.World.World
 
 		private CommandResult Command_statuseffect(WorldClient client, MabiCreature creature, string[] args, string msg)
 		{
-			ulong val1 = 0, val2 = 0, val3 = 0, val4 = 0;
+			ulong[] val = new ulong[5] { 0, 0, 0, 0, 0 };
+			MabiCreature target = creature;
+			int hasTarget = 0;
 
-			if (args.Length > 1)
-				val1 = ulong.Parse(args[1], System.Globalization.NumberStyles.HexNumber);
-			if (args.Length > 2)
-				val2 = ulong.Parse(args[2], System.Globalization.NumberStyles.HexNumber);
-			if (args.Length > 3)
-				val3 = ulong.Parse(args[3], System.Globalization.NumberStyles.HexNumber);
-			if (args.Length > 4)
-				val4 = ulong.Parse(args[4], System.Globalization.NumberStyles.HexNumber);
+			if (args.Length > 1 && !ulong.TryParse(args[1], out val[0]))
+			{
+				target = WorldManager.Instance.GetCharacterOrNpcByName(args[1]);
+				if (target == null)
+				{
+					Send.ServerMessage(client, creature,
+						"Target character not found or failed to convert first parameter.");
+					return CommandResult.Okay; //Okay since we do a more specific error message.
+				}
+				hasTarget = 1;
+			}
 
-			creature.Conditions.A = (CreatureConditionA)val1;
-			creature.Conditions.B = (CreatureConditionB)val2;
-			creature.Conditions.C = (CreatureConditionC)val3;
-			creature.Conditions.D = (CreatureConditionD)val4;
+			for (int i = 1; i <= 5; ++i)
+				if (args.Length > (i + hasTarget) && !ulong.TryParse(
+					args[i + hasTarget], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out val[i - 1]))
+				{
+					Send.ServerMessage(client, creature,
+						"Failed to convert parameter.\nMake sure parameter is a numerical value.");
+					return CommandResult.Okay; //Okay since we do a more specific error message.
+				}
 
-			Send.StatusEffectUpdate(creature);
+			target.Conditions.A = (CreatureConditionA)val[0];
+			target.Conditions.B = (CreatureConditionB)val[1];
+			target.Conditions.C = (CreatureConditionC)val[2];
+			target.Conditions.D = (CreatureConditionD)val[3];
+			//target.Conditions.E = (CreatureConditionE)val[4];
+
+			Send.StatusEffectUpdate(target);
 
 			return CommandResult.Okay;
 		}
