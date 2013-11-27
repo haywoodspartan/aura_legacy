@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `evGSupportRace` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT  '0',
   `transPvPEnabled` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT  '0',
   `causeOfDeath` INT NOT NULL DEFAULT  '0',
+  `timePlayed` DOUBLE NOT NULL DEFAULT '0',
   PRIMARY KEY (`characterId`),
   KEY `account` (`accountId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

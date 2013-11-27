@@ -26,7 +26,9 @@ namespace Aura.World.Player
 
 		public DateTime CreationTime = DateTime.Now;
 		public DateTime LastRebirth = DateTime.Now;
+		public DateTime LoginTime = DateTime.Now;
 
+		public double lastTimePlayed = 0;	//Total time played on the account represented in seconds
 		public bool Save = false;
 
 		public List<ushort> Keywords = new List<ushort>();
@@ -112,6 +114,11 @@ namespace Aura.World.Player
 		{
 			this.Keywords.Add(keywordId);
 			Send.NewKeyword((this.Client as WorldClient), keywordId);
+		}
+
+		public double GetTimePlayed()
+		{
+			return (lastTimePlayed + (DateTime.Now - LoginTime).TotalSeconds);
 		}
 	}
 }
