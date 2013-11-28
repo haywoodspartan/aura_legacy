@@ -29,6 +29,7 @@ namespace Aura.Data
 		public static SkillRankDb SkillRankDb = new SkillRankDb();
 		public static SpawnDb SpawnDb = new SpawnDb();
 		public static SpeedDb SpeedDb = new SpeedDb();
+		public static StatsAgeUpDb StatsAgeUpDb = new StatsAgeUpDb();
 		public static StatsBaseDb StatsBaseDb = new StatsBaseDb();
 		public static StatsLevelUpDb StatsLevelUpDb = new StatsLevelUpDb();
 		public static TalentExpDb TalentExpDb = new TalentExpDb();

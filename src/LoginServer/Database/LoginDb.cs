@@ -334,7 +334,7 @@ namespace Aura.Login.Database
 
 				var mc = new MySqlCommand(
 					"INSERT INTO `characters`"
-					+ " (`characterId`, `server`, `type`, `accountId`, `name`, `race`, `skinColor`, `eyeType`, `eyeColor`, `mouthType`,"
+					+ " (`characterId`, `server`, `type`, `lastLogin`, `accountId`, `name`, `race`, `skinColor`, `eyeType`, `eyeColor`, `mouthType`,"
 					+ " `status`, `height`, `fatness`, `upper`, `lower`, `region`, `x`, `y`, `direction`, `battleState`, `weaponSet`,"
 					+ " `lifeDelta`, `injuries`, `lifeMax`, `manaDelta`, `manaMax`, `staminaDelta`, `staminaMax`, `food`, `level`, `totalLevel`,"
 					+ " `experience`, `age`, `strength`, `dexterity`, `intelligence`, `will`, `luck`, `abilityPoints`, `attackMin`, `attackMax`,"
@@ -343,7 +343,7 @@ namespace Aura.Login.Database
 					+ " `lastTown`, `lastDungeon`, `birthday`, `title`, `deletionTime`, `maxLevel`, `rebirthCount`, `jobId`) "
 
 					+ " VALUES"
-					+ " (@characterId, @server, @type, @accountId, @name, @race, @skinColor, @eyeType, @eyeColor, @mouthType,"
+					+ " (@characterId, @server, @type, @lastLogin, @accountId, @name, @race, @skinColor, @eyeType, @eyeColor, @mouthType,"
 					+ " @status, @height, @fatness, @upper, @lower, @region, @x, @y, @direction, @battleState, @weaponSet,"
 					+ " @lifeDelta, @injuries, @lifeMax, @manaDelta, @manaMax, @staminaDelta, @staminaMax, @food, @level, @totalLevel,"
 					+ " @experience, @age, @strength, @dexterity, @intelligence, @will, @luck, @abilityPoints, @attackMin, @attackMax,"
@@ -356,6 +356,7 @@ namespace Aura.Login.Database
 				mc.Parameters.AddWithValue("@server", character.Server);
 				mc.Parameters.AddWithValue("@accountId", accountName);
 				mc.Parameters.AddWithValue("@type", character.Type.ToString().ToUpper());
+				mc.Parameters.AddWithValue("@lastLogin", DateTime.Now);
 				mc.Parameters.AddWithValue("@name", character.Name);
 				mc.Parameters.AddWithValue("@race", character.Race);
 				mc.Parameters.AddWithValue("@skinColor", character.SkinColor);

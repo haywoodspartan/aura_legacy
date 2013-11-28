@@ -24,6 +24,7 @@ namespace Aura.World.Player
 		public uint MarriageTime;
 		public ushort MarriageCount;
 
+		public DateTime LastLogin = DateTime.Now;
 		public DateTime CreationTime = DateTime.Now;
 		public DateTime LastRebirth = DateTime.Now;
 
@@ -112,6 +113,56 @@ namespace Aura.World.Player
 		{
 			this.Keywords.Add(keywordId);
 			Send.NewKeyword((this.Client as WorldClient), keywordId);
+		}
+
+		/// <summary>
+		/// Applies age increase if required.
+		/// </summary>
+		/// <returns></returns>
+		public uint CheckAgeIncrease()
+		{
+			// Get next aging date after last login
+			var nextAging = LastLogin.AddDays((double)(DayOfWeek.Saturday - LastLogin.DayOfWeek)).Date + TimeSpan.FromHours(12);
+			if (nextAging.DayOfWeek == DayOfWeek.Saturday && LastLogin >= nextAging)
+				nextAging = nextAging.AddDays(7);
+
+			// Count saturday noons between last login and now
+			uint ageMod = 0;
+			while (DateTime.Now >= nextAging)
+			{
+				ageMod++;
+				nextAging = nextAging.AddDays(7);
+			}
+
+			this.Age += (byte)ageMod;
+
+			if ((this.Age - ageMod) > 25)
+				return ageMod;
+
+			var baseAge = this.Age - ageMod;
+			for (var i = 1; (i <= ageMod && baseAge + i <= 25); i++)
+			{
+				StatsAgeUpInfo statInfo = MabiData.StatsAgeUpDb.Find(this.Race, (byte)(baseAge + i));
+				if (statInfo == null)
+					return ageMod;	//We're already giving a console warning in the later method.
+
+				this.AbilityPoints += statInfo.AP;
+				this.LifeMaxBase += statInfo.Life;
+				this.ManaMaxBase += statInfo.Mana;
+				this.StaminaMaxBase += statInfo.Stamina;
+				this.StrBase += statInfo.Str;
+				this.IntBase += statInfo.Int;
+				this.DexBase += statInfo.Dex;
+				this.WillBase += statInfo.Will;
+				this.LuckBase += statInfo.Luck;
+
+				if (baseAge + i <= 17)
+					this.Height += (1.0f / 7.0f);
+			}
+
+			this.FullHeal();
+
+			return ageMod;
 		}
 	}
 }

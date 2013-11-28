@@ -105,6 +105,11 @@ namespace Aura.Shared.Network
 					LoadDb(MabiData.RaceDb, dataPath + "/db/races.txt", reload);
 				}
 
+				if ((toLoad & DataLoad.StatsAge) != 0)
+				{
+					LoadDb(MabiData.StatsAgeUpDb, dataPath + "/db/stats_ageup.txt", reload);
+				}
+
 				if ((toLoad & DataLoad.StatsBase) != 0)
 				{
 					LoadDb(MabiData.StatsBaseDb, dataPath + "/db/stats_base.txt", reload);
@@ -258,8 +263,10 @@ namespace Aura.Shared.Network
 		Exp = 0x1000,
 		Pets = 0x2000,
 		Weather = 0x4000,
+		StatsAge = 0x10000,
 
-		All = 0xFFFF,
+
+		All = 0xFFFFF,
 
 		LoginServer = Skills | Races | StatsBase | StatsLevel | Cards | Colors | Items | Regions | Pets,
 		WorldServer = All,

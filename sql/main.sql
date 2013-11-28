@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `accountId` varchar(50) DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `type` enum('CHARACTER','PET') NOT NULL DEFAULT 'CHARACTER',
+  `lastLogin` datetime NOT NULL,
   `race` int(10) unsigned NOT NULL,
   `skinColor` tinyint(3) unsigned NOT NULL,
   `eyeType` tinyint(3) unsigned NOT NULL,
