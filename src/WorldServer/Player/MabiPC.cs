@@ -28,7 +28,8 @@ namespace Aura.World.Player
 		public DateTime LastRebirth = DateTime.Now;
 		public DateTime LoginTime = DateTime.Now;
 
-		public double lastTimePlayed = 0;	//Total time played on the account represented in seconds
+		private TimeSpan _timePlayed;	//Total time played on the account
+
 		public bool Save = false;
 
 		public List<ushort> Keywords = new List<ushort>();
@@ -116,9 +117,23 @@ namespace Aura.World.Player
 			Send.NewKeyword((this.Client as WorldClient), keywordId);
 		}
 
-		public double GetTimePlayed()
+		/// <summary>
+		/// Returns the total time played on the character
+		/// </summary>
+		/// <returns></returns>
+		public TimeSpan GetTimePlayed()
 		{
-			return (lastTimePlayed + (DateTime.Now - LoginTime).TotalSeconds);
+			_timePlayed = _timePlayed.Add(DateTime.Now - LoginTime); //Recalculate...
+			return _timePlayed;
+		}
+
+		/// <summary>
+		/// Converts the amount of Time played in seconds to a TimeSpan
+		/// </summary>
+		/// <param name="secondsPlayed">Total seconds played on the character</param>
+		public void SetTimePlayed(double secondsPlayed)
+		{
+			_timePlayed = TimeSpan.FromSeconds(secondsPlayed);
 		}
 	}
 }
