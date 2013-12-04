@@ -29,6 +29,7 @@ namespace Aura.World.Player
 		public DateTime LoginTime = DateTime.Now;
 
 		private TimeSpan _timePlayed;	//Total time played on the account
+		public TimeSpan TimePlayed { get { return _timePlayed + (DateTime.Now - LoginTime); } set { _timePlayed = value; } }
 
 		public bool Save = false;
 
@@ -115,25 +116,6 @@ namespace Aura.World.Player
 		{
 			this.Keywords.Add(keywordId);
 			Send.NewKeyword((this.Client as WorldClient), keywordId);
-		}
-
-		/// <summary>
-		/// Returns the total time played on the character
-		/// </summary>
-		/// <returns></returns>
-		public TimeSpan GetTimePlayed()
-		{
-			_timePlayed = _timePlayed.Add(DateTime.Now - LoginTime); //Recalculate...
-			return _timePlayed;
-		}
-
-		/// <summary>
-		/// Converts the amount of Time played in seconds to a TimeSpan
-		/// </summary>
-		/// <param name="secondsPlayed">Total seconds played on the character</param>
-		public void SetTimePlayed(double secondsPlayed)
-		{
-			_timePlayed = TimeSpan.FromSeconds(secondsPlayed);
 		}
 	}
 }

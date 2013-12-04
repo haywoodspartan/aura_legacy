@@ -1147,7 +1147,7 @@ namespace Aura.World.World
 		/// <returns></returns>
 		private CommandResult Command_played(WorldClient client, MabiCreature creature, string[] args, string msg)
 		{
-			TimeSpan total = client.Character.GetTimePlayed();
+			TimeSpan total = client.Character.TimePlayed;
 			var retString = "You have played a total of ";
 
 			if (total.Days > 0)

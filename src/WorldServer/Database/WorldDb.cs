@@ -247,7 +247,7 @@ namespace Aura.World.Database
 					character.EvGSupportRace = reader.GetByte("evGSupportRace");
 					character.TransPvPEnabled = reader.GetBoolean("transPvPEnabled");
 					character.CauseOfDeath = (DeathCauses)reader.GetInt32("causeOfDeath");
-					character.SetTimePlayed(reader.GetDouble("timePlayed"));
+					character.TimePlayed = TimeSpan.FromSeconds(reader.GetDouble("timePlayed"));
 					character.State = (CreatureStates)reader.GetUInt32("status") & ~CreatureStates.SitDown;
 
 					character.LoadDefault();
@@ -769,7 +769,7 @@ namespace Aura.World.Database
 				mc.Parameters.AddWithValue("@evGSupportRace", character.EvGSupportRace);
 				mc.Parameters.AddWithValue("@transPvPEnabled", character.TransPvPEnabled);
 				mc.Parameters.AddWithValue("@causeOfDeath", character.CauseOfDeath);
-				mc.Parameters.AddWithValue("@timePlayed", character.GetTimePlayed().TotalSeconds);
+				mc.Parameters.AddWithValue("@timePlayed", character.TimePlayed.TotalSeconds);
 
 				mc.ExecuteNonQuery();
 			}
