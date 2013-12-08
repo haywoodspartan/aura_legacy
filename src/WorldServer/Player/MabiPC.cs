@@ -27,6 +27,10 @@ namespace Aura.World.Player
 		public DateTime LastLogin = DateTime.Now;
 		public DateTime CreationTime = DateTime.Now;
 		public DateTime LastRebirth = DateTime.Now;
+		public DateTime LoginTime = DateTime.Now;
+
+		private TimeSpan _timePlayed;	//Total time played on the account
+		public TimeSpan TimePlayed { get { return _timePlayed + (DateTime.Now - LoginTime); } set { _timePlayed = value; } }
 
 		public bool Save = false;
 

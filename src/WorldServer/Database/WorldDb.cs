@@ -249,6 +249,7 @@ namespace Aura.World.Database
 					character.EvGSupportRace = reader.GetByte("evGSupportRace");
 					character.TransPvPEnabled = reader.GetBoolean("transPvPEnabled");
 					character.CauseOfDeath = (DeathCauses)reader.GetInt32("causeOfDeath");
+					character.TimePlayed = TimeSpan.FromSeconds(reader.GetDouble("timePlayed"));
 					character.State = (CreatureStates)reader.GetUInt32("status") & ~CreatureStates.SitDown;
 
 					character.LoadDefault();
@@ -723,7 +724,8 @@ namespace Aura.World.Database
 					" `strength` = @strength, `dexterity` = @dexterity, `intelligence` = @intelligence, `will` = @will, `luck` = @luck," +
 					" `abilityPoints` = @abilityPoints, `lastTown` = @lastTown, `lastDungeon` = @lastDungeon," +
 					" `pvpWins` = @pvpWins, `pvpLosses` = @pvpLosses, `evGEnabled` = @evGEnabled, `evGSupportRace` = @evGSupportRace, `transPvPEnabled` = @transPvPEnabled," +
-					" `causeOfDeath` = @causeOfDeath" +
+					" `causeOfDeath` = @causeOfDeath," +
+					" `timePlayed` = @timePlayed" +
 					" WHERE `characterId` = @characterId"
 				, conn);
 
@@ -778,6 +780,7 @@ namespace Aura.World.Database
 				mc.Parameters.AddWithValue("@evGSupportRace", character.EvGSupportRace);
 				mc.Parameters.AddWithValue("@transPvPEnabled", character.TransPvPEnabled);
 				mc.Parameters.AddWithValue("@causeOfDeath", character.CauseOfDeath);
+				mc.Parameters.AddWithValue("@timePlayed", character.TimePlayed.TotalSeconds);
 
 				mc.ExecuteNonQuery();
 			}

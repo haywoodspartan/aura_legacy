@@ -33,6 +33,7 @@ namespace Aura.World.World
 			this.AddCommand("gesture", "<gesture>", Authority.Player, Command_gesture);
 			this.AddCommand("cutscene", "[name]", Authority.Player, Command_cutscene);
 			this.AddCommand("evgsupport", "<elf|giant|none>", Authority.Player, Command_evgsupport);
+			this.AddCommand("played", Authority.Player, Command_played);
 
 			this.AddCommand("go", "<destination>", Authority.VIP, Command_go);
 			this.AddCommand("shamala", "<race>", Authority.VIP, Command_shamala);
@@ -1152,6 +1153,30 @@ namespace Aura.World.World
 				creature.Inventory.Debug();
 			else
 				return CommandResult.WrongParameter;
+
+			return CommandResult.Okay;
+		}
+
+		/// <summary>
+		/// Sends the amount of time played on the character as a server message.
+		/// </summary>
+		/// <param name="client"></param>
+		/// <param name="creature"></param>
+		/// <param name="args"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		private CommandResult Command_played(WorldClient client, MabiCreature creature, string[] args, string msg)
+		{
+			TimeSpan total = client.Character.TimePlayed;
+			var retString = "You have played a total of ";
+
+			if (total.Days > 0)
+				retString += String.Format("{0} Days ", total.Days);
+			if (total.Hours > 0)
+				retString += String.Format("{0} Hours ", total.Hours);
+
+			retString += String.Format("{0} Minute(s) and {1} Second(s) on this character.", total.Minutes, total.Seconds);
+			Send.ServerMessage(client, creature, retString);
 
 			return CommandResult.Okay;
 		}
