@@ -23,12 +23,19 @@ namespace Aura.World.Player
 			base.CalculateBaseStats();
 
 			this.Height = (1.0f / 7.0f * (this.Age - 10.0f));
+			if (this.Age > 17)
+				this.Height = 1.0f;
 
 			var ageInfo = MabiData.StatsBaseDb.Find(this.Race, this.Age);
 			if (ageInfo == null)
 			{
-				Logger.Warning("Unable to find age info for race '" + this.Race.ToString() + "', age '" + this.Age.ToString() + "'.");
-				return;
+				Logger.Warning("Unable to find age info for race '{0}', age '{1}'. Trying default age (17)...", this.Race, this.Age);
+				ageInfo = MabiData.StatsBaseDb.Find(this.Race, 17);
+				if (ageInfo == null)
+				{
+					Logger.Warning("Default age info for race '{0}' could not be retreived. Aborting...", this.Race);
+					return;
+				}
 			}
 
 			this.LifeMaxBase = ageInfo.Life;

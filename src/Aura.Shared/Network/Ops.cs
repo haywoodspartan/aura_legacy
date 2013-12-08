@@ -319,6 +319,8 @@ namespace Aura.Shared.Network
 		public const uint ArenaRoundInfo = 0x9667;
 		public const uint ArenaRoundInfoCancel = 0x9668;
 
+		public const uint AgeIncrease = 0x9858;
+
 		public const uint StatusEffectUpdate = 0xA028;
 		public const uint DyePaletteReq = 0xA418;
 		public const uint DyePaletteReqR = 0xA419;

@@ -204,6 +204,7 @@ namespace Aura.World.Database
 					character.Id = reader.GetUInt64("characterId");
 					character.Name = reader.GetString("name");
 					character.Server = reader.GetString("server");
+					character.LastLogin = reader["lastLogin"] as DateTime? ?? DateTime.MinValue;
 					character.Race = reader.GetUInt32("race");
 					character.SkinColor = reader.GetByte("skinColor");
 					character.EyeColor = reader.GetByte("eyeColor");
@@ -711,6 +712,7 @@ namespace Aura.World.Database
 
 				var mc = new MySqlCommand(
 					"UPDATE `characters` SET" +
+					" `lastLogin` = @lastLogin," +
 					" `race` = @race, `status` = @status, `height` = @height, `fatness` = @fatness, `upper` = @upper, `lower` = @lower," +
 					" `region` = @region, `x` = @x, `y` = @y, `direction` = @direction, `weaponSet` = @weaponSet, `title` = @title, `optionTitle` = @optionTitle," +
 					" `talentTitle` = @talentTitle, `grandmasterTalent` = @grandmasterTalent, `lifeDelta` = @lifeDelta, `injuries` = @injuries, `lifeMax` = @lifeMax," +
@@ -726,6 +728,7 @@ namespace Aura.World.Database
 				, conn);
 
 				mc.Parameters.AddWithValue("@characterId", character.Id);
+				mc.Parameters.AddWithValue("@lastLogin", DateTime.Now);
 				mc.Parameters.AddWithValue("@race", character.Race);
 				mc.Parameters.AddWithValue("@status", (uint)character.State);
 				mc.Parameters.AddWithValue("@height", character.Height);

@@ -11,6 +11,7 @@ using Aura.Shared.Const;
 using Aura.Shared.Util;
 using Aura.World.Player;
 using Aura.World.Database;
+using Aura.Data;
 
 namespace Aura.World.Network
 {
@@ -61,6 +62,20 @@ namespace Aura.World.Network
 		{
 			var p = new MabiPacket(Op.CharacterUnlock, creature.Id);
 			p.PutInt(lockType);
+
+			client.Send(p);
+		}
+
+		/// <summary>
+		/// Sends Age Increase Packet
+		/// </summary>
+		/// <param name="client"></param>
+		/// <param name="creature"></param>
+		/// <param name="age"></param>
+		public static void AgeIncrease(WorldClient client, MabiPC player, ushort age)
+		{
+			var p = new MabiPacket(Op.AgeIncrease, player.Id);
+			p.PutShort(age);
 
 			client.Send(p);
 		}
@@ -333,6 +348,45 @@ namespace Aura.World.Network
 			packet.PutInt(unk);
 
 			WorldManager.Instance.Broadcast(packet, SendTargets.Range, creature);
+		}
+
+		/// <summary>
+		/// Sends the age up packets to the given client
+		/// </summary>
+		/// <param name="player"></param>
+		/// <param name="ageMod"></param>
+		public static void AgeInfo(MabiPC player)
+		{
+			StatsAgeUpInfo statInfo = MabiData.StatsAgeUpDb.Find(player.Race, player.Age);
+			if (statInfo == null)
+			{
+				if (player.Age < 25) //Can't find bonuses that should be there. Let's give a warning.
+					Logger.Warning("Could not find age up stat bonuses for age {0}.", player.Age);
+
+				Send.AgeIncrease((player.Client as WorldClient), player, player.Age); //different after 25?
+				return;
+			}
+
+			if (statInfo.AP > 0)
+				player.Client.Send(PacketCreator.AcquireAp(player, statInfo.AP));
+			if (statInfo.Life > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "life", statInfo.Life));
+			if (statInfo.Mana > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "mana", statInfo.Mana));
+			if (statInfo.Stamina > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "stamina", statInfo.Stamina));
+			if (statInfo.Str > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "str", statInfo.Str));
+			if (statInfo.Int > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "int", statInfo.Int));
+			if (statInfo.Dex > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "dex", statInfo.Dex));
+			if (statInfo.Will > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "will", statInfo.Will));
+			if (statInfo.Luck > 0)
+				player.Client.Send(PacketCreator.AcquireStat(player, "luck", statInfo.Luck));
+
+			Send.AgeIncrease((player.Client as WorldClient), player, player.Age);
 		}
 	}
 }

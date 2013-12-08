@@ -96,6 +96,14 @@ namespace Aura.World.Network
 			return p;
 		}
 
+		public static MabiPacket AcquireStat(MabiCreature creature, string statName, double amount)
+		{
+			var p = new MabiPacket(Op.AcquireInfo, creature.Id);
+			p.PutString("<xml type='{0}' value='{1}' simple='true' onlyLog='false' />", statName, (uint)amount);
+			p.PutInt(3000);
+			return p;
+		}
+
 		public static MabiPacket SpawnEffect(MabiEntity entity, SpawnEffect type)
 		{
 			return SpawnEffect(entity, type, entity.GetPosition());

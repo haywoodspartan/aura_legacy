@@ -320,6 +320,8 @@ namespace Aura.World.Network
 				return;
 			}
 
+			uint ageMod = character.CheckAgeIncrease();
+
 			// Spawn effect
 			if (character.Owner != null)
 				WorldManager.Instance.Broadcast(PacketCreator.SpawnEffect(character.Owner, SpawnEffect.Pet, character.GetPosition()), SendTargets.Range, character);
@@ -339,6 +341,9 @@ namespace Aura.World.Network
 			// If initial login.
 			if (character == client.Character)
 			{
+				if (ageMod > 0)
+					Send.AgeInfo(character);
+
 				if (character.Guild != null)
 					Send.GuildstoneLocation(client, character);
 

@@ -44,6 +44,7 @@
     <Compile Include="Database.cs" />
     <Compile Include="Database\AncientDrops.cs" />
     <Compile Include="Database\Chairs.cs" />
+    <Compile Include="Database\StatsAgeUp.cs" />
     <Compile Include="Database\TalentRanks.cs" />
     <Compile Include="Database\TalentExp.cs" />
     <Compile Include="Database\Exp.cs" />
