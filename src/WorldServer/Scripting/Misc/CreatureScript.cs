@@ -144,10 +144,10 @@ namespace Aura.World.Scripting
 		{
 			var item = this.Creature.Inventory.GetItemAt(Pocket.Robe, 0, 0);
 			if (item != null)
-				item.Info.FigureA = 0;
+				item.Info.FigureA = 1;
 			item = this.Creature.Inventory.GetItemAt(Pocket.RobeStyle, 0, 0);
 			if (item != null)
-				item.Info.FigureA = 0;
+				item.Info.FigureA = 1;
 		}
 
 		protected virtual void EquipItem(Pocket slot, string itemName, uint color1 = 0, uint color2 = 0, uint color3 = 0)
