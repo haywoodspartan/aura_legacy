@@ -112,13 +112,13 @@ namespace Aura.World.Scripting
 			WorldManager.Instance.CreatureLeaveRegion(this.Creature);
 			SetLocation(region, x, y);
 
+			Send.EntityAppears(this.Creature);
+
 			if (flash)
 			{
 				Send.Effect(Effect.ScreenFlash, this.Creature, 3000u, 0u);
 				Send.PlaySound("data/sound/Tarlach_change.wav", this.Creature);
 			}
-
-			Send.EntityAppears(this.Creature);
 		}
 
 		protected virtual void EquipItem(Pocket pocket, uint itemClass, uint color1 = 0, uint color2 = 0, uint color3 = 0)
