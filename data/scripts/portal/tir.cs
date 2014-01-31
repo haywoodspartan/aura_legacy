@@ -28,8 +28,8 @@ public class TirPortals : BaseScript
 		DefineProp(45036000569262320, "tir", 13218, 36376, PropWarp("tir_general", 845, 2440));
 		DefineProp(45036030633508867, "tir_general", 725, 2576, PropWarp("tir", 13113, 36454));
 
-		DefineProp(45036000569262997, "tir", 3877, 32969, PropWarp("tir_magic", 2348, 886));
-		DefineProp(45036034928476161, "tir_magic", 2479, 949, PropWarp("tir", 4093, 32909));
+		DefineProp(45036000569262997, "tir", 3877, 32969, PropWarp("tir_school", 2348, 886));
+		DefineProp(45036034928476161, "tir_school", 2479, 949, PropWarp("tir", 4093, 32909));
 
 		DefineProp(45036000568999945, "tir", 27690, 30381, PropWarp("ciar_altar", 3886, 3297));
 		DefineProp(45036043518410754, "ciar_altar", 4433, 3194, PropWarp("tir", 28761, 30725));
